@@ -81,6 +81,23 @@
         android:layout_marginHorizontal="12dp"
         android:background="@color/gray_d9d" />
 
+    <EditText
+        android:id="@+id/edt_cancuoccd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/cus_bgr_edt"
+        android:hint="Nhập Căn Cước Công Dân . . "
+        android:inputType="number"
+        android:padding="12dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="12dp"
+        android:background="@color/gray_d9d" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

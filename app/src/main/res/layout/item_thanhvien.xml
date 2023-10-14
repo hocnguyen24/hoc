@@ -49,6 +49,16 @@
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/tv_cancuoccd"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Căn Cước Công Dân:"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
         </LinearLayout>
         <ImageButton
             android:id="@+id/btn_delete"

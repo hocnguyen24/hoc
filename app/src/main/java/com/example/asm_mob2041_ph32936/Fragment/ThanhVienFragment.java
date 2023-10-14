@@ -84,7 +84,7 @@ public class ThanhVienFragment extends Fragment {
     static PhieuMuonDAO phieuMuonDAO;
     ThanhVienAdapter adapter;
     ThanhVien thanhVien;
-    EditText edt_maTV,edt_hoten,edt_namsinh, edCccd;
+    EditText edt_maTV,edt_hoten,edt_namsinh, edCccd, edtcancuoccd;
     Dialog dialog;
     int getPosition;
     @Override
@@ -126,6 +126,7 @@ public class ThanhVienFragment extends Fragment {
         edt_hoten = dialog.findViewById(R.id.edt_hoten);
         edt_namsinh = dialog.findViewById(R.id.edt_namsinh);
         edCccd = dialog.findViewById(R.id.edt_cccd);
+        edtcancuoccd = dialog.findViewById(R.id.edt_cancuoccd);
         Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
         Button btn_save = dialog.findViewById(R.id.btn_save);
         if (type != 0) {
@@ -135,6 +136,7 @@ public class ThanhVienFragment extends Fragment {
             edt_hoten.setText(thanhVien.getHoTen());
             edt_namsinh.setText(String.valueOf(thanhVien.getNamSinh()));
             edCccd.setText(thanhVien.getCccd());
+            edtcancuoccd.setText(String.valueOf(thanhVien.getCancuoccc()));
         } else {
             tv_title.setText("Thêm thành viên");
             edt_maTV.setText("Mã Thành viên: ");
@@ -151,7 +153,8 @@ public class ThanhVienFragment extends Fragment {
                 String hoTen = edt_hoten.getText().toString().trim();
                 String namSinh = edt_namsinh.getText().toString().trim();
                 String cccd = edCccd.getText().toString().trim();
-                if (validate(hoTen,namSinh, cccd) > 0) {
+                String cancuoccd = edtcancuoccd.getText().toString().trim();
+                if (validate(hoTen,namSinh, cccd,cancuoccd) > 0) {
                     if (type == 0) {
                         if (thanhVienDAO.insert(thanhVien) > 0) {
                             Toast.makeText(context, "Thêm thành công !", Toast.LENGTH_SHORT).show();
@@ -216,12 +219,13 @@ public class ThanhVienFragment extends Fragment {
         });
         builder.show();
     }
-    public int validate(String hoTen,String namSinh, String cccd) {
+    public int validate(String hoTen, String namSinh, String cccd, String cancuoccd) {
         int check;
         if (hoTen.length() != 0 && namSinh.length() != 0 && cccd.length() != 0) {
             thanhVien.setHoTen(hoTen);
             thanhVien.setNamSinh(Integer.parseInt(namSinh));
             thanhVien.setCccd(cccd);
+            thanhVien.setCancuoccc(Integer.parseInt(cancuoccd));
             check = 1;
         } else {
             if (hoTen.length() == 0) {
@@ -231,6 +235,9 @@ public class ThanhVienFragment extends Fragment {
                 edt_namsinh.setError("Không được để trống trường này !");
             }
             if (cccd.length() == 0) {
+                edCccd.setError("Không được để trống trường này !");
+            }
+            if (cancuoccd.length() == 0) {
                 edCccd.setError("Không được để trống trường này !");
             }
             check = -1;

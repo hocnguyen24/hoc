@@ -7,6 +7,8 @@ public class ThanhVien {
 
     private String cccd;
 
+    private int cancuoccc;
+
     public ThanhVien() {}
 
     public ThanhVien(int maTV, String hoTen, int namSinh) {
@@ -20,6 +22,14 @@ public class ThanhVien {
         this.hoTen = hoTen;
         this.namSinh = namSinh;
         this.cccd = cccd;
+    }
+
+    public ThanhVien(int maTV, String hoTen, int namSinh, String cccd, int cancuoccc) {
+        this.maTV = maTV;
+        this.hoTen = hoTen;
+        this.namSinh = namSinh;
+        this.cccd = cccd;
+        this.cancuoccc = cancuoccc;
     }
 
     public int getMaTV() {
@@ -52,5 +62,13 @@ public class ThanhVien {
 
     public void setCccd(String cccd) {
         this.cccd = cccd;
+    }
+
+    public int getCancuoccc() {
+        return cancuoccc;
+    }
+
+    public void setCancuoccc(int cancuoccc) {
+        this.cancuoccc = cancuoccc;
     }
 }

@@ -28,7 +28,8 @@ public class DbHelper extends SQLiteOpenHelper {
                         "maTV INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "hoTen TEXT NOT NULL, " +
                         "namSinh INTEGER NOT NULL," +
-                        "cccd INTEGER NOT NULL)";
+                        "cccd INTEGER NOT NULL," +
+                        "cancuoccc INTEGER NOT NULL)";
         db.execSQL(createTableThanhVien);
 
         //Tao bang Phieu Muon
@@ -89,11 +90,11 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(add_sach);
 
         String add_thanhvien = "INSERT INTO ThanhVien VALUES" +
-                "(0,'Nguyễn Văn A',2000, '0123')," +
-                "(1,'Nguyễn Văn B',2001, '2345')," +
-                "(2,'Nguyễn Văn C',2002, '3456')," +
-                "(3,'Nguyễn Văn D',2003, '4567')," +
-                "(4,'Nguyễn Văn E',2004, '5678')";
+                "(0,'Nguyễn Văn A',2000, '0123',09123456)," +
+                "(1,'Nguyễn Văn B',2001, '2345',09123455)," +
+                "(2,'Nguyễn Văn C',2002, '3456',0987777)," +
+                "(3,'Nguyễn Văn D',2003, '4567',09838383)," +
+                "(4,'Nguyễn Văn E',2004, '5678',097646444)";
         db.execSQL(add_thanhvien);
     }
 
