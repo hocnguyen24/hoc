@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    tools:context=".Fragment.TaoTaiKhoanFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:gravity="center|top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_marginTop="48dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/default_avatar"
+            app:shapeAppearanceOverlay="@style/rounde_corner_avatar"/>
+        <EditText
+            android:id="@+id/edt_username"
+            android:layout_marginTop="60dp"
+            android:padding="12dp"
+            android:hint="Tên đăng nhập . . ."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cus_bgr_edt"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_d9d"/>
+        <EditText
+            android:id="@+id/edt_name"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:hint="Họ và tên . . ."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cus_bgr_edt"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_d9d"/>
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edt_password"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:hint="Mật khẩu . . ."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cus_bgr_edt"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_d9d"/>
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edt_enterthepassword"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:hint="Nhập lại mật khẩu . . ."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cus_bgr_edt"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_d9d"/>
+        <LinearLayout
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_cancel"
+                android:textStyle="bold"
+                android:layout_marginRight="3dp"
+                android:background="@color/gray_d9d"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="HỦY"/>
+            <Button
+                android:id="@+id/btn_save"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginLeft="3dp"
+                android:background="@color/blue_A400"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lưu"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

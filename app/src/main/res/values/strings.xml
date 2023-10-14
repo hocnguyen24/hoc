@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Assignment_MOB2041_PH32936</string>
+    <string name="open"></string>
+    <string name="close"></string>
+    <string name="welcome">Welcome \n To \n Phương Nam Library</string>
+    <string name="trangthai_datra"><u>Đã trả sách</u></string>
+    <string name="trangthai_chuatra"><u>Chưa trả sách</u></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

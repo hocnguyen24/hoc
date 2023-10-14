@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shadow"
+        android:padding="12dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/tv_maloai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã Loại: 01"
+                android:textSize="16sp"
+                android:textColor="@color/gray_4d0"/>
+            <TextView
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textStyle="bold"
+                android:id="@+id/tv_tenloai"
+                android:layout_marginTop="6dp"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:text="Tên Loại: CNTT"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/img_delete"/>
+    </RelativeLayout>
+</RelativeLayout>
