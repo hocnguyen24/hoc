@@ -92,6 +92,8 @@ public class PhieuMuonFragment extends Fragment {
     }
     Dialog dialog;
     ArrayList<PhieuMuon> lstPM;
+
+    ArrayList<PhieuMuon> TemplstPM = new ArrayList<>();
     ArrayList<ThanhVien>lstTV;
     ArrayList<Sach> lstSach;
     PhieuMuon phieuMuon;
@@ -119,10 +121,12 @@ public class PhieuMuonFragment extends Fragment {
         lstSach = new ArrayList<>();
         phieuMuon = new PhieuMuon();
         phieuMuonDAO = new PhieuMuonDAO(getContext());
+
         thanhVienDAO = new ThanhVienDAO(getContext());
         sachDAO = new SachDAO(getContext());
 
         lstTV = (ArrayList<ThanhVien>) thanhVienDAO.getAll();
+
         lstSach = (ArrayList<Sach>) sachDAO.getAll();
         initUI(view);
         fillRCV();
@@ -167,9 +171,11 @@ public class PhieuMuonFragment extends Fragment {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         TextView tv_title = dialog.findViewById(R.id.tv_title);
+
         edt_maPM = dialog.findViewById(R.id.edt_maPM);
         edt_ngay = dialog.findViewById(R.id.edt_ngay);
         edt_tienThue = dialog.findViewById(R.id.edt_tienThue);
+
         spinner_sach = dialog.findViewById(R.id.spinner_sach);
         spinner_thanhvien = dialog.findViewById(R.id.spinner_thanhvien);
         CheckBox chk_status = dialog.findViewById(R.id.chk_status);
