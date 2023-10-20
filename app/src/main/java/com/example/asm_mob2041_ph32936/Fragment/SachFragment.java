@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,9 @@ import com.example.asm_mob2041_ph32936.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,6 +89,8 @@ public class SachFragment extends Fragment {
 
     RecyclerView rcv_sach;
     ArrayList<Sach> lstSach;
+
+    ArrayList<Sach> tempLstsach;
     ArrayList<LoaiSach> lstLS;
 
     FloatingActionButton btn_add;
@@ -97,9 +104,12 @@ public class SachFragment extends Fragment {
 
     Dialog dialog;
     Spinner spinner_loaiSach;
-    EditText edt_maSach,edt_tenSach,edt_giaThue,edt_namXuatBan;
+    EditText edt_maSach, edt_tenSach, edt_giaThue, edt_namXuatBan, edt_seach;
+
+    Button btn_tang, btn_giam;
     int maLoaiSach = 0;
     int getPosition;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,6 +117,11 @@ public class SachFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sach, container, false);
 
+
+        edt_seach = view.findViewById(R.id.edSearch);
+
+        btn_tang = view.findViewById(R.id.btnTang);
+        btn_giam = view.findViewById(R.id.btnGiam);
 
         sach = new Sach();
         lstSach = new ArrayList<>();
@@ -117,10 +132,47 @@ public class SachFragment extends Fragment {
         loaiSach = new LoaiSach();
 
         lstLS = (ArrayList<LoaiSach>) loaiSachDAO.getAll();
+        tempLstsach = (ArrayList<Sach>) sachDAO.getAll();
 
         initUI(view);
         fillRCV();
         btnAdd();
+
+        edt_seach.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                lstSach.clear();
+                for (Sach sach : tempLstsach) {
+                    if (String.valueOf(sach.getMaSach()).contains(s.toString())) {
+                        lstSach.add(sach);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        btn_tang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tang();
+            }
+        });
+
+        btn_giam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                giam();
+            }
+        });
+
         return view;
     }
 
@@ -128,7 +180,7 @@ public class SachFragment extends Fragment {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(getContext(),0);
+                openDialog(getContext(), 0);
             }
         });
     }
@@ -140,16 +192,17 @@ public class SachFragment extends Fragment {
             public void iclickItem(RecyclerView.ViewHolder viewHolder, int position, int type) {
                 getPosition = position;
                 if (type == 0) {
-                    openDialog(getContext(),1);
+                    openDialog(getContext(), 1);
                 } else {
                     xoa_sach(String.valueOf(position));
                 }
             }
         });
-        rcv_sach.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        rcv_sach.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rcv_sach.setAdapter(adapter);
 
     }
+
     protected void openDialog(final Context context, final int type) {
 
         dialog = new Dialog(context);
@@ -168,7 +221,7 @@ public class SachFragment extends Fragment {
         Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
         Button btn_save = dialog.findViewById(R.id.btn_save);
 
-        spinnerAdapter = new LoaiSachSpinnerAdapter(getContext(),R.layout.item_view_spinner,lstLS);
+        spinnerAdapter = new LoaiSachSpinnerAdapter(getContext(), R.layout.item_view_spinner, lstLS);
         spinner_loaiSach.setAdapter(spinnerAdapter);
         spinner_loaiSach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -189,7 +242,7 @@ public class SachFragment extends Fragment {
             edt_tenSach.setText(sach.getTenSach());
             edt_giaThue.setText(String.valueOf(sach.getGiaThue()));
             edt_namXuatBan.setText(String.valueOf(sach.getNamXuatBan()));
-            for (int i = 0;i < lstLS.size(); i++) {
+            for (int i = 0; i < lstLS.size(); i++) {
                 if (sach.getMaLoai() == lstLS.get(i).getMaLoai()) {
                     maLoaiSach = i;
                 }
@@ -212,7 +265,7 @@ public class SachFragment extends Fragment {
                 String tenSach = edt_tenSach.getText().toString().trim();
                 String tienThue = edt_giaThue.getText().toString().trim();
                 String namXuatBan = edt_namXuatBan.getText().toString().trim();
-                if (validate(tenSach,tienThue,namXuatBan) > 0) {
+                if (validate(tenSach, tienThue, namXuatBan) > 0) {
                     if (type == 0) {
                         if (sachDAO.insert(sach) > 0) {
                             Toast.makeText(context, "Thêm thành công !", Toast.LENGTH_SHORT).show();
@@ -233,9 +286,10 @@ public class SachFragment extends Fragment {
         });
         dialog.show();
     }
-    public int validate(String tenSach,String giaThue,String namXuatBan) {
+
+    public int validate(String tenSach, String giaThue, String namXuatBan) {
         int check;
-        if (tenSach.length() != 0 && giaThue.length() != 0 && namXuatBan.length() != 0 ) {
+        if (tenSach.length() != 0 && giaThue.length() != 0 && namXuatBan.length() != 0) {
             sach.setTenSach(tenSach);
             sach.setGiaThue(Integer.parseInt(giaThue));
             sach.setNamXuatBan(Integer.parseInt(namXuatBan));
@@ -263,7 +317,7 @@ public class SachFragment extends Fragment {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(phieuMuonDAO.checkID("maSach",String.valueOf(id))) {
+                if (phieuMuonDAO.checkID("maSach", String.valueOf(id))) {
                     Toast.makeText(getContext(), "Không thể xóa quyển Sách này !", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Xóa thành công !", Toast.LENGTH_SHORT).show();
@@ -281,9 +335,44 @@ public class SachFragment extends Fragment {
         });
         builder.show();
     }
+
     private void initUI(View view) {
         rcv_sach = view.findViewById(R.id.rcv_sach);
 
         btn_add = view.findViewById(R.id.btn_add);
     }
+
+    public void tang() {
+        Collections.sort(lstSach, new Comparator<Sach>() {
+            @Override
+            public int compare(Sach o1, Sach o2) {
+                if (o1.getMaSach() < o2.getMaSach()) {
+                    return -1;
+                } else if (o1.getMaSach() > o2.getMaSach()) {
+                    return 1;
+                }else{
+                    return 0;
+                }
+
+            }
+        });
+        adapter.notifyDataSetChanged();
+    }
+
+    private void giam(){
+        Collections.sort(lstSach, new Comparator<Sach>() {
+            @Override
+            public int compare(Sach o1, Sach o2) {
+                if (o1.getMaSach() > o2.getMaSach()) {
+                    return -1;
+                } else if (o1.getMaSach() < o2.getMaSach()) {
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+        });
+        adapter.notifyDataSetChanged();
+    }
+
 }
